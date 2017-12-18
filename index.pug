@@ -1,0 +1,10 @@
+doctype html
+html(lang="en")
+	include includes/head.pug
+	include includes/data.pug
+	include includes/mixins.pug
+
+body
+	each val, index in commentsTree
+		+makeComment(val, index + 1)
+	

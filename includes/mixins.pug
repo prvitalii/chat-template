@@ -1,0 +1,22 @@
+mixin makeComment(obj, index, responder, imgClass, arrow) 
+	if obj.userName
+		.chatContainer
+			img(class=imgClass, src=obj.userPic)
+			.chatBox
+				h5 
+					span(style="color:grey; font-size:14px")
+						b= index + ". " 
+					span(style="color:blue; font-size:14px")= obj.userName
+					#{arrow}
+					span(style="color:grey")
+						-var date = " - " + obj.date
+						|#{responder} #{date}
+				p= obj.message
+				p.action Reply
+				-var shareArr = ">"
+				p.action Share #{shareArr} 
+				if obj.children
+					each val, num in obj.children
+						-var nestedIndex = index.toString() + "." + (num+1).toString()
+						-var arrow = "img class='arrow' src='arrow.png'"
+						+makeComment(val, nestedIndex, obj.userName, "small", arrow)
